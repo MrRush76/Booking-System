@@ -3,8 +3,7 @@ import login
 import tkinter as tk
 
 def main():
-    root = tk.Tk()
-    notebook = ttk.Notebook(root)
+    x: login.main_page = login.main_page()
 
 
 

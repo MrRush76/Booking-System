@@ -1,6 +1,5 @@
 import tkinter as tk
 from database import user_database
-import sqlite3
 
 class cancel_button(tk.Button):
 
@@ -48,9 +47,8 @@ class login_page_frame(tk.Frame):
         register_button.grid(row=3, column=2)
 
     def login_button_click(self,username=None, password=None):
-        if username is not None and password is not None:
-            username: str = self.username_entry.get()
-            password: str = self.password_entry.get()
+        username: str = self.username_entry.get()
+        password: str = self.password_entry.get()
 
         print(username)
         print(password)
@@ -89,4 +87,3 @@ class main_page(tk.Tk):
 
         self.mainloop()
 
-x: main_page = main_page()
