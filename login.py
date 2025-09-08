@@ -1,5 +1,6 @@
 import tkinter as tk
 from database import user_database
+from menu import show_menu
 
 class cancel_button(tk.Button):
 
@@ -55,7 +56,7 @@ class login_page_frame(tk.Frame):
         db = user_database("./user_database.db")
         user_exists = db.check_account(username, password)
         if user_exists:
-            print("working")
+            show_menu(self)
         else:
             label = tk.Label(self, text="Incorrect Username or Password", font=["Century Gothic", 11])
             label.grid(row=3, column=1, columnspan=3)
