@@ -44,8 +44,7 @@ class login_page_frame(tk.Frame):
         cancel_button(self).grid(row=3, column=0)
         login_button = tk.Button(self, text="Login", font=["Century Gothic", 11], command=lambda: self.login_button_click())
         login_button.grid(row=3, column=1)
-        register_button = tk.Button(self, text="Register", font=["Century Gothic", 11], command=lambda: self.register_button_click())
-        register_button.grid(row=3, column=2)
+
 
     def login_button_click(self,username=None, password=None):
         username: str = self.username_entry.get()
@@ -62,17 +61,6 @@ class login_page_frame(tk.Frame):
             label.grid(row=3, column=1, columnspan=3)
             self.after(1000, label.destroy)
         # valid = true
-
-    def register_button_click(self):
-        username: str = self.username_entry.get()
-        password: str = self.password_entry.get()
-        db = user_database("./user_database.db")
-        user_exists = db.check_account(username, password)
-        if not user_exists:
-            db.add_user(username, password)
-            self.login_button_click(username,password)
-        else:
-            self.login_button_click(username,password)
 
 
 class main_page(tk.Tk):
