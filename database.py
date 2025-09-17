@@ -15,8 +15,7 @@ class Database():
 
 def create_tables(db):
     db.execute(
-        "CREATE TABLE IF NOT EXISTS Users ( User_ID INTEGER PRIMARY KEY, Username TEXT , Password TEXT NOT NULL)")
-
+        "CREATE TABLE IF NOT EXISTS Users ( User_ID INTEGER PRIMARY KEY, Username TEXT , Password TEXT NOT NULL, Admin BOOLEAN NOT NULL DEFAULT false )")
 
 class user_database(Database):
     def __init__(self, db_path):
@@ -34,19 +33,6 @@ class user_database(Database):
         create_tables(db)
         db.close()
 
-    def add_user(self, username, password):
-        db = sqlite3.connect(self.databaseRef)
-        data = db.execute("SELECT MAX(User_ID) FROM Users")
-        result = data.fetchone()[0]
-        if result is not None:
-            user_id = result + 1
-        else:
-            user_id = 1
-        db.execute(
-            "INSERT INTO Users(user_id, Username, Password) VALUES (?, ?, ?)",
-            (user_id, username, hash(password)))
-        db.commit()
-        db.close()
 
     def check_account(self, username, password):
         db = sqlite3.connect(self.databaseRef)
@@ -57,3 +43,18 @@ class user_database(Database):
         if result:
             return result[0][0]
         return False
+
+    def add_user(self, username, password, admin=False):
+        if not self.check_account(username, password):
+            db = sqlite3.connect(self.databaseRef)
+            data = db.execute("SELECT MAX(User_ID) FROM Users")
+            result = data.fetchone()[0]
+            if result is not None:
+                user_id = result + 1
+            else:
+                user_id = 1
+            db.execute(
+                "INSERT INTO Users(user_id, Username, Password,admin) VALUES (?, ?, ?, ?)",
+                (user_id, username, hash(password),admin))
+            db.commit()
+            db.close()

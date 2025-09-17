@@ -6,7 +6,7 @@ from tkinter import ttk
 def book_appointment():
     print("starting bookings .... ")
 
-def show_menu(oldFrame:tk.Frame = None):   # basic menu
+def show_menu(oldFrame:tk.Frame = None, admin_user = False):   # basic menu
     if oldFrame is not None:
         oldFrame.destroy()
     root = tk.Tk()

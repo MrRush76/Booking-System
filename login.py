@@ -53,6 +53,7 @@ class login_page_frame(tk.Frame):
         print(username)
         print(password)
         db = user_database("./user_database.db")
+        db.add_user("admin","password", True)
         user_exists = db.check_account(username, password)
         if user_exists:
             show_menu(self)
