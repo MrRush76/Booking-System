@@ -1,6 +1,7 @@
 import tkinter as tk
 from database import user_database
 from menu import show_menu
+import validation
 
 class cancel_button(tk.Button):
 
@@ -34,6 +35,7 @@ class login_page_frame(tk.Frame):
         tk.Label(self, text="Login", font=["Century Gothic", 11]).grid(row=0, column=0, columnspan=3)
         tk.Label(self, text="Username:", font=["Century Gothic", 11]).grid(row=1, column=0)
         tk.Label(self, text="Password:", font=["Century Gothic", 11]).grid(row=2, column=0)
+        tk.Label(self, text="Email:", font=["Century Gothic", 11]).grid(row=3, column=0)
 
         self.username_entry = tk.Entry(self)
         self.username_entry.grid(row=1, column=1, columnspan=2)
@@ -41,20 +43,24 @@ class login_page_frame(tk.Frame):
         self.password_entry = tk.Entry(self)
         self.password_entry.grid(row=2, column=1, columnspan=2)
 
-        cancel_button(self).grid(row=3, column=0)
+        self.email_entry = tk.Entry(self)
+        self.email_entry.grid(row=3, column=1, columnspan=2)
+
+        cancel_button(self).grid(row=4, column=0)
         login_button = tk.Button(self, text="Login", font=["Century Gothic", 11], command=lambda: self.login_button_click())
-        login_button.grid(row=3, column=1)
+        login_button.grid(row=4, column=1)
 
 
     def login_button_click(self,username=None, password=None):
         username: str = self.username_entry.get()
         password: str = self.password_entry.get()
+        email: str = self.email_entry.get()
 
         print(username)
         print(password)
         db = user_database("./user_database.db")
         db.add_user("admin","password", True)
-        user_exists = db.check_account(username, password)
+        user_exists = db.check_account(email, username, password)
         if user_exists:
             show_menu(self)
         else:
