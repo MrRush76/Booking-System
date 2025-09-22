@@ -51,7 +51,7 @@ class login_page_frame(tk.Frame):
         login_button.grid(row=4, column=1)
 
 
-    def login_button_click(self,username=None, password=None):
+    def login_button_click(self):
         username: str = self.username_entry.get()
         password: str = self.password_entry.get()
         email: str = self.email_entry.get()
@@ -59,7 +59,7 @@ class login_page_frame(tk.Frame):
         print(username)
         print(password)
         db = user_database("./user_database.db")
-        db.add_user("admin","password", True)
+        db.add_user("email@email.com","admin","password", True)
         user_exists = db.check_account(email, username, password)
         if user_exists:
             show_menu(self)

@@ -36,7 +36,7 @@ class user_database(Database):
 
     def check_account(self,email, username, password):
         db = sqlite3.connect(self.databaseRef)
-        data = db.execute("SELECT User_ID FROM Users WHERE Email = ?Username = ? AND Password = ?", (email, username, hash(password)))
+        data = db.execute("SELECT User_ID FROM Users WHERE Email = ? AND Username = ? AND Password = ?", (email, username, hash(password)))
         result = data.fetchall()
         print(result)
         db.close()
